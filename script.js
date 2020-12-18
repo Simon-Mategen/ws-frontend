@@ -1,7 +1,9 @@
 function updatePersonInfo(details){
     return function(){
+        
         $('#personNamn').text(details['tilltalsnamn'] + " " + details['efternamn']);
         $('#bild').html('<img src="' + details['bild_url_192'] + '">');
+        $('#information').text("Mer info om " + details['tilltalsnamn'] + " " + details['efternamn'] + " finner du här: ");
 
         switch(details['parti'])
         {
@@ -51,7 +53,7 @@ $(document).ready(function(){
         
         
         html = '';
-        html = '<li id="person_' + i + '">' + data['personlista']['person'][i]['sorteringsnamn'] + '</li>';
+        html = ' <a href="#container"> <li id="person_' + i + '">' + data['personlista']['person'][i]['sorteringsnamn'] + '</li> </a>';
       
         $('#personer').append(html);
         $('#personer').append('\n');

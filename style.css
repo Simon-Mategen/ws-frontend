@@ -1,22 +1,67 @@
 body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1.1em;
 }
 
-table {
-    border-spacing: 10px;
-    border-collapse: separate;
-    cellspacing: 100px;
-    width: 1200px;
-    white-space: pre-line;
-  }
+#container{
+    padding-top: 2%;
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-areas: 
+        "header header"
+        "aside main"
+        "aside tweet"; 
 
-  td {
-    border: 1px solid black;
-    padding: 10px;
-    
-  }
-
-li{
-    cursor: pointer;
 }
 
+#container > header{
+  grid-area: header;
+}
+
+#container > aside{
+  grid-area: aside;
+}
+
+#container > section {
+  background-color: burlywood;
+}
+
+#container > main{
+  grid-area: main;
+   display: grid;
+  
+  height: auto;
+  padding-left: 10%;
+  grid-template-rows: 6% 6% 6%;
+  grid-template-columns: 25% 50%;
+  grid-template-areas: 
+      "name name"
+      "img party"
+      "img info" ;
+}
+
+#info > #personNamn{
+  grid-area: name;
+  margin: auto;
+}
+
+#info > #parti{
+  grid-area: party;
+  margin-top: 15%;
+}
+
+#info > #bild{
+  grid-area: img;
+}
+
+#info > #information {
+  grid-area: info;
+  margin-top: 1%;
+}
+
+a{
+  text-decoration: none;
+  color: #333;
+}
