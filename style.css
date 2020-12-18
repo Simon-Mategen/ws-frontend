@@ -1,0 +1,22 @@
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+table {
+    border-spacing: 10px;
+    border-collapse: separate;
+    cellspacing: 100px;
+    width: 1200px;
+    white-space: pre-line;
+  }
+
+  td {
+    border: 1px solid black;
+    padding: 10px;
+    
+  }
+
+li{
+    cursor: pointer;
+}
+
