@@ -8,39 +8,57 @@
 
     <body>
         <div id = "container">
-            <header > 
-                <h1>Politiknörden</h1>
+            <header class= "sample-header"> 
+                <div class="sample-header-section">
+                    <h1>Politiknörden</h1>
+                    <p>Vad skriver folk om din favoritpolitiker?</p>
+                </div>
             </header>
 
-        
+            <div class="sample-section-wrap">
+                <div class="sample-section">
             <aside>
+                <form action= "" id="form">
+                    <label for="party">Välj ett parti:</label>
+                    <select id="party" name="party" onchange="submitForm();">
+                      <option value="alla">Alla</option>
+                      <option value="S">Socialdemokraterna</option>
+                      <option value="MP">Miljöpartiet</option>
+                      <option value="KD">Kristdemokraterna</option>
+                      <option value="V">Vänsterpartiet</option>
+                      <option value="M">Moderaterna</option>
+                      <option value="SD">Sverigedemokraterna</option>
+                      <option value="L">Liberalerna</option>
+                      <option value="C">Centerpartiet</option>
+                    </select>
+                </form>
                 <ul id="personer">      
                    
                 </ul>  
+            </div>
+            </div>
             </aside>
-        
+            <div class="sample-section-wrap">
+            <div class="sample-section">
             <main id="info">
-                <h2 id="personNamn"></h2>
+               
+                <h2 id="personNamn">Välkommen till Politiknörden!</h2>
                 <div id="bild"></div>
-                <h3 id="parti"></h3>
-                <p id="information"></p>
+                <div id="text">
+                    <h3 id="parti"></h3>
+                    <p id="information">Här kan du se information och de senaste tweetsen om din favorit riksdagsledamot! 
+                        Välj ett namn för att börja!</p>
+                </div>
             </main>
             
             <section id="tweets"> 
                 <div id= tweet></div>
             </section>
-
+        </div>
+        </div>
         </div>       
         
             
-                
-            
-
-            
-            
-        
-        
-
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
