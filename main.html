@@ -4,14 +4,19 @@
     <meta charset="utf-8">
     <title>Main</title>
     <link href="style.css" rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
 </head>
 
     <body>
         <div id = "container">
             <header class= "sample-header"> 
                 <div class="sample-header-section">
-                    <h1>Politiknörden</h1>
-                    <p>Vad skriver folk om din favoritpolitiker?</p>
+                    <div id="header">
+                        <h1>Politiknörden</h1>
+                        <p>Vad skriver folk om din favoritpolitiker?</p>
+                    </div>
+                    
                 </div>
             </header>
 
@@ -48,12 +53,36 @@
                     <h3 id="parti"></h3>
                     <p id="information">Här kan du se information och de senaste tweetsen om din favorit riksdagsledamot! 
                         Välj ett namn för att börja!</p>
+                        
                 </div>
+                <section class="gallery js-flickity"
+                    data-flickity-options='{ "wrapAround": true }'>
+                    <div class="gallery-cell">
+                        <p>Författare</p>
+                        <p>fhj ffkhesf fjkhdsf khsafd fsdjklsdfhdskl fjklf fjklsd fjlks ffesklf fkjfklsf fshk fhfjsd fjddhfm djdf fjdd</p>
+                        <p>url</p>
+                        <p>datum</p>
+                    </div>
+                    <div class="gallery-cell">
+                        <p>Författare</p>
+                        <p>fhj ffkhesf fjkhdsf khsafd fsdjklsdfhdskl fjklf fjklsd fjlks ffesklf fkjfklsf fshk fhfjsd fjddhfm djdf fjdd</p>
+                    </div>
+                    <div class="gallery-cell">
+                        <p>Författare</p>
+                        <p>fhj ffkhesf fjkhdsf khsafd fsdjklsdfhdskl fjklf fjklsd fjlks ffesklf fkjfklsf fshk fhfjsd fjddhfm djdf fjdd</p>
+                    </div>
+                    <div class="gallery-cell">
+                        <p>Författare</p>
+                        <p>fhj ffkhesf fjkhdsf khsafd fsdjklsdfhdskl fjklf fjklsd fjlks ffesklf fkjfklsf fshk fhfjsd fjddhfm djdf fjdd</p>
+                    </div>
+                    <div class="gallery-cell">
+                        <p>Författare</p>
+                        <p>fhj ffkhesf fjkhdsf khsafd fsdjklsdfhdskl fjklf fjklsd fjlks ffesklf fkjfklsf fshk fhfjsd fjddhfm djdf fjdd</p>
+                    </div>
+                </section>
             </main>
             
-            <section id="tweets"> 
-                <div id= tweet></div>
-            </section>
+            
         </div>
         </div>
         </div>       
@@ -62,6 +91,7 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
         <script src="script.js"></script>
     </body>
 
