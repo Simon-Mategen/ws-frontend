@@ -11,6 +11,7 @@ body{
     width: 90%;
     margin: auto;
     display: grid;
+    background-color: white;
     grid-template-rows:0% ;
     grid-template-columns: 25% 75%;
     grid-template-areas: 
@@ -129,14 +130,10 @@ h1{
 .sample-section {
   background-color: white;
 }
-
-
-
-
-
-
-
-.gallery-cell {
+.hidden{
+  display: none;
+}
+.carousel-cell {
   box-sizing: border-box;
   width: 66%;
   height: 200px;
@@ -145,7 +142,7 @@ h1{
 }
 
 /* cell number */
-.gallery-cell:before {
+.carousel-cell:before {
   box-sizing: border-box;
 
   display: block;
