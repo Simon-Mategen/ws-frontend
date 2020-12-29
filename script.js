@@ -120,8 +120,13 @@ function submitForm(){
             $('#personer').append(html);
             $('#personer').append('\n');
             
-    
-            $('#person_' + i).click(updatePersonInfo(data['personlista']['person'][i])
+            var tweets = {"tweets":[    
+                {"name":"Ram", "content":"det här är tweet 1", "url":"det här är länken till tweeten", "date":"2020-12-26"},    
+                {"name":"Uno", "content":"det här är tweet 2", "url":"det här är länken till tweeten", "date":"2020-12-27"},  
+                {"name":"Ram", "content":"det här är tweet 3", "url":"det här är länken till tweeten", "date":"2020-12-28"}  
+            ]};
+
+            $('#person_' + i).click(updatePersonInfo(data['personlista']['person'][i],tweets)
             )};
             
         });
