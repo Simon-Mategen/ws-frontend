@@ -145,12 +145,3 @@ function submitForm(){
         parallax_height();
     });
 
-
-
-$(document).load($(window).bind("resize", checkPosition));
-
-function checkPosition(){
-    if (window.matchMedia('(max-width:1325px)').matches) {
-        console.log("hello");
-    }
-}
