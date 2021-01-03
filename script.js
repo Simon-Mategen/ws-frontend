@@ -3,6 +3,7 @@ var $carousel = $('.carousel').flickity({
   });
 
 function updatePersonInfo(details,tweets){
+    // metod som uppdaterar informationen på sidan efter vald person
     return function(){
         
         $('#personNamn').text(details['tilltalsnamn'] + " " + details['efternamn']);
@@ -20,9 +21,9 @@ function updatePersonInfo(details,tweets){
         }
         
         $carousel = $('.carousel').flickity({
-            // options
             wrapAround: true, 
-            prevNextButtons: true
+            prevNextButtons: true,
+            pageDots:false
           });
         
 
@@ -63,9 +64,6 @@ function updatePersonInfo(details,tweets){
 
 $(document).ready(function(){
 
-    
-
-
     $.ajax({
     url: "http://data.riksdagen.se/personlista/?iid=&fnamn=&enamn=&f_ar=&kn=&parti=&valkrets=&rdlstatus=&org=&utformat=json&sort=sorteringsnamn&sortorder=asc&termlista=",
     headers: {"Accept": "application/json"} 
@@ -74,23 +72,22 @@ $(document).ready(function(){
     .done(function(data)
     {
         var i;
-        for(i = 0; i < data['personlista']['@hits']; i++)
-        {
+        for(i = 0; i < data['personlista']['@hits']; i++){
         html = ' <li id="person_' + i + '">' + data['personlista']['person'][i]['sorteringsnamn'] + '</li>';
       
         $('#personer').append(html);
         $('#personer').append('\n');
         
-        
+        // Ajax anrop till tweets här
+
         var tweets = {"tweets":[    
             {"name":"Ram", "content":"det här är tweet 1", "url":"det här är länken till tweeten", "date":"2020-12-26"},    
             {"name":"Uno", "content":"det här är tweet 2", "url":"det här är länken till tweeten", "date":"2020-12-27"},  
             {"name":"Ram", "content":"det här är tweet 3", "url":"det här är länken till tweeten", "date":"2020-12-28"}  
         ]};
 
-        $('#person_' + i).click(updatePersonInfo(data['personlista']['person'][i], tweets)
-        )};
-        
+        $('#person_' + i).click(updatePersonInfo(data['personlista']['person'][i], tweets))
+        }; 
     });
 });
 
@@ -101,6 +98,7 @@ function submitForm(){
     if (parti == "alla"){
         parti = "";
     }
+
     $('ul').empty();
         $.ajax({
         url: "http://data.riksdagen.se/personlista/?iid=&fnamn=&enamn=&f_ar=&kn=&parti="+parti+"&valkrets=&rdlstatus=&org=&utformat=json&sort=sorteringsnamn&sortorder=asc&termlista=",
@@ -129,10 +127,8 @@ function submitForm(){
             $('#person_' + i).click(updatePersonInfo(data['personlista']['person'][i],tweets)
             )};
             
-        });
-    
+        }); 
   } 
-
 
   function parallax_height() {
     var scroll_top = $(this).scrollTop();
@@ -150,3 +146,11 @@ function submitForm(){
     });
 
 
+
+$(document).load($(window).bind("resize", checkPosition));
+
+function checkPosition(){
+    if (window.matchMedia('(max-width:1325px)').matches) {
+        console.log("hello");
+    }
+}
