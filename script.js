@@ -2,13 +2,14 @@ var $carousel = $('.carousel').flickity({
     prevNextButtons: false
   });
 
-function updatePersonInfo(details,tweets){
+function updatePersonInfo(details,tweets,link){
     // metod som uppdaterar informationen på sidan efter vald person
     return function(){
         
         $('#personNamn').text(details['tilltalsnamn'] + " " + details['efternamn']);
         $('#bild').html('<img src="' + details['bild_url_max'] + '">');
         $('#information').text("Mer info om " + details['tilltalsnamn'] + " " + details['efternamn'] + " finner du här: ");
+        $('#link').html('<a href= "'+link['linkUrl']+'" target="_blank"> Mer info</a>');
         $('#text').css({"outline-style":"dashed","outline-color": "#9F90BC"});
 
         $carousel.flickity('destroy');
@@ -86,7 +87,13 @@ $(document).ready(function(){
             {"name":"Ram", "content":"det här är tweet 3", "url":"det här är länken till tweeten", "date":"2020-12-28"}  
         ]};
 
-        $('#person_' + i).click(updatePersonInfo(data['personlista']['person'][i], tweets))
+        // Ajax anrop för informationslänk
+
+        var link = {
+            "linkUrl" : "http://www.google.com"
+        };
+
+        $('#person_' + i).click(updatePersonInfo(data['personlista']['person'][i], tweets, link))
         }; 
     });
 });

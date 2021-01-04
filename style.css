@@ -90,6 +90,11 @@ a{
   color: #333;
 }
 
+ #link a {
+  margin-left: 40%;
+  color: #9F90BC;
+}
+
 /* CSS för parallax headern och lite struktur*/
 
 .sample-header {
