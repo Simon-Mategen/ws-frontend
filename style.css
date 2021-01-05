@@ -39,7 +39,6 @@ body{
 }
 #container main{
   display: grid;
-  height: 70vh;
   padding-top: 10%;
   padding-left: 10%;
   outline-style:solid;
@@ -148,14 +147,28 @@ h1{
 .carousel-cell {
   box-sizing: border-box;
   width: 66%;
-  height: 200px;
+  height: 110%;
   margin-right: 10px;
   counter-increment: gallery-cell;
+  padding-left: 1%;
+  border-radius: 1em; 
 }
 
+.carousel-cell img {
+  height: 100px;
+  width: 100px;
+  padding-left: 60%;
+}
+
+.carousel-cell .tid {
+  top: 10%;
+}
+
+.carousel-cell a {
+  color: #02B6F1;
+}
 .carousel-cell:before {
   box-sizing: border-box;
-
   display: block;
   text-align: center;
   line-height: 200px;
@@ -237,5 +250,4 @@ ul{
         "text text"
         "tweet tweet";
   }
-
 } 

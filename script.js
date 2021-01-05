@@ -7,39 +7,39 @@ function getTweets(name){
         $carousel.flickity('destroy');
         $('.carousel').empty();
     
-        var tempname = name;
-        var newStr = tempname.replace(/ /g, '+');
+        var tempname = name.replace(/ /g, '+');
 
         $.ajax({
-            url: "http://localhost:4567/api/v1/tweet/"+newStr,
+            url: "http://localhost:4567/api/v1/tweet/"+tempname,
             headers: {"Accept": "application/json"},
             error: function(response) {
 
                 $carousel = $('.carousel').flickity({
                     wrapAround: true, 
                     prevNextButtons: false,
-                    pageDots:false
+                    pageDots:false                  
                   });
 
                   $('.carousel').append('<div class="carousel-cell"> <p>Inga tweets hittade</p>');
+                  $('#container main').css({"height" : "70vh"}); 
             } 
             })
 
             .done(function(details)
             {
-                
-                
+                                
                 console.log(details);
                 
                 for(i = 0; i < details.length; i++){
-                    $('.carousel').append('<div class="carousel-cell"> <p>'+details[i]["author"]+'</p> '+details[i]["text"]+'</p> <p>'+details[i]["url"]+'</p> <p>'+details[i]["date"]+'</p></div>');           
+                    $('.carousel').append('<div class="carousel-cell"> <p>'+details[i]["författare"]+'</p> <p>'+details[i]["text"]+'</p> <p> <a href ='+details[i]['url']+'> Klicka här för att se tweeten på twitters hemsida</a> </p> <img src="loggor/twitter.png">  <p class ="tid">'+details[i]["datum"]+'</p></div>');           
                     
                 }
                 
                 $carousel = $('.carousel').flickity({
                     wrapAround: true, 
                     prevNextButtons: true,
-                    pageDots:false
+                    pageDots:false,
+                    draggable: false
                   });
                 
             });
@@ -77,24 +77,16 @@ function updatePersonInfo(id){
                 $('#bild').html('<img src="' + details['bild'] + '">');
                 $('#information').text("Mer info om " + details['namn'] + " finner du här: ");
                 $('#parti').text("Parti: "+details['parti']);
-
             });
         
         
         $('#text').css({"outline-style":"dashed","outline-color": "#9F90BC"});
-
-        
-       
-        
-
-        
-        
-        
+        $('#container main').css({"height" : "100vh"}); 
     }
 }
 
 $(document).ready(function(){
-
+    $('#container main').css({"height" : "70vh"}); 
     $.ajax({
         url: "http://localhost:4567/api/v1/partier",
         headers: {"Accept": "application/json"} 
