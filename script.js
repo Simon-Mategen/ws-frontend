@@ -1,63 +1,93 @@
 var $carousel = $('.carousel').flickity({
     prevNextButtons: false
   });
+function getTweets(name){
+    return function(){
+        
+        $carousel.flickity('destroy');
+        $('.carousel').empty();
+    
+        var tempname = name;
+        var newStr = tempname.replace(/ /g, '+');
 
-function updatePersonInfo(details,tweets,link){
+        $.ajax({
+            url: "http://localhost:4567/api/v1/tweet/"+newStr,
+            headers: {"Accept": "application/json"},
+            error: function(response) {
+
+                $carousel = $('.carousel').flickity({
+                    wrapAround: true, 
+                    prevNextButtons: false,
+                    pageDots:false
+                  });
+
+                  $('.carousel').append('<div class="carousel-cell"> <p>Inga tweets hittade</p>');
+            } 
+            })
+
+            .done(function(details)
+            {
+                
+                
+                console.log(details);
+                
+                for(i = 0; i < details.length; i++){
+                    $('.carousel').append('<div class="carousel-cell"> <p>'+details[i]["author"]+'</p> '+details[i]["text"]+'</p> <p>'+details[i]["url"]+'</p> <p>'+details[i]["date"]+'</p></div>');           
+                    
+                }
+                
+                $carousel = $('.carousel').flickity({
+                    wrapAround: true, 
+                    prevNextButtons: true,
+                    pageDots:false
+                  });
+                
+            });
+        }
+}
+
+function getLink(id){
+    return function(){
+        $.ajax({
+            url: "http://localhost:4567/api/v1/link/"+id,
+            headers: {"Accept": "application/json"} 
+            })
+
+            .done(function(details)
+            {
+                $('#link').html('<a href= "'+details+'" target="_blank"> Mer info</a>');
+            });
+    }
+}
+
+
+function updatePersonInfo(id){
     // metod som uppdaterar informationen på sidan efter vald person
     return function(){
         
-        $('#personNamn').text(details['tilltalsnamn'] + " " + details['efternamn']);
-        $('#bild').html('<img src="' + details['bild_url_max'] + '">');
-        $('#information').text("Mer info om " + details['tilltalsnamn'] + " " + details['efternamn'] + " finner du här: ");
-        $('#link').html('<a href= "'+link['linkUrl']+'" target="_blank"> Mer info</a>');
+        $.ajax({
+            url: "http://localhost:4567/api/v1/ledamoter/"+id,
+            headers: {"Accept": "application/json"} 
+            })
+
+            .done(function(details)
+            {
+                console.log(details);
+                $('#personNamn').text(details['namn']);
+                $('#bild').html('<img src="' + details['bild'] + '">');
+                $('#information').text("Mer info om " + details['namn'] + " finner du här: ");
+                $('#parti').text("Parti: "+details['parti']);
+
+            });
+        
+        
         $('#text').css({"outline-style":"dashed","outline-color": "#9F90BC"});
 
-        $carousel.flickity('destroy');
-	    $('.carousel').empty();
         
-        
-        for(i = 0; i < tweets.tweets.length; i++){
-            $('.carousel').append('<div class="carousel-cell"> <p>'+tweets["tweets"][i]["name"]+'</p> '+tweets["tweets"][i]["content"]+'</p> <p>'+tweets["tweets"][i]["url"]+'</p> <p>'+tweets["tweets"][i]["date"]+'</p></div>');           
-            
-        }
-        
-        $carousel = $('.carousel').flickity({
-            wrapAround: true, 
-            prevNextButtons: true,
-            pageDots:false
-          });
+       
         
 
-        switch(details['parti'])
-        {
-            case "L":
-            $('#parti').text("Liberalerna");
-            break;
-            case "M":
-            $('#parti').text("Moderaterna");
-            break;
-            case "S":
-            $('#parti').text("Socialdemokraterna");
-            break;
-            case "C":
-            $('#parti').text("Centerpartiet");
-            break;
-            case "SD":
-            $('#parti').text("Sverigedemokraterna");
-            break;
-            case "V":
-            $('#parti').text("Vänsterpartiet");
-            break;
-            case "MP":
-            $('#parti').text("Miljöpartiet");
-            break;
-            case "KD":
-            $('#parti').text("Kristdemokraterna");
-            break;
-            default:
-            $('#parti').text("Partitillhörighet");
-            break;
-        }
+        
         
         
     }
@@ -66,36 +96,19 @@ function updatePersonInfo(details,tweets,link){
 $(document).ready(function(){
 
     $.ajax({
-    url: "http://data.riksdagen.se/personlista/?iid=&fnamn=&enamn=&f_ar=&kn=&parti=&valkrets=&rdlstatus=&org=&utformat=json&sort=sorteringsnamn&sortorder=asc&termlista=",
-    headers: {"Accept": "application/json"} 
-    })
-
-    .done(function(data)
+        url: "http://localhost:4567/api/v1/partier",
+        headers: {"Accept": "application/json"} 
+        })
+    .done(function(partier)
     {
         var i;
-        for(i = 0; i < data['personlista']['@hits']; i++){
-        html = ' <li id="person_' + i + '">' + data['personlista']['person'][i]['sorteringsnamn'] + '</li>';
-      
-        $('#personer').append(html);
-        $('#personer').append('\n');
-        
-        // Ajax anrop till tweets här
-
-        var tweets = {"tweets":[    
-            {"name":"Ram", "content":"det här är tweet 1", "url":"det här är länken till tweeten", "date":"2020-12-26"},    
-            {"name":"Uno", "content":"det här är tweet 2", "url":"det här är länken till tweeten", "date":"2020-12-27"},  
-            {"name":"Ram", "content":"det här är tweet 3", "url":"det här är länken till tweeten", "date":"2020-12-28"}  
-        ]};
-
-        // Ajax anrop för informationslänk
-
-        var link = {
-            "linkUrl" : "http://www.google.com"
-        };
-
-        $('#person_' + i).click(updatePersonInfo(data['personlista']['person'][i], tweets, link))
-        }; 
+        for(i=0;i<partier.length;i++){
+           $('#party').append('<option value="'+partier[i]+'">'+partier[i]+'</option>');
+        }
     });
+
+    getAll();
+    
 });
 
 function submitForm(){
@@ -103,39 +116,55 @@ function submitForm(){
     var parti =  $("#party").val();
 
     if (parti == "alla"){
-        parti = "";
+        getAll();
     }
+    
 
     $('ul').empty();
+
         $.ajax({
-        url: "http://data.riksdagen.se/personlista/?iid=&fnamn=&enamn=&f_ar=&kn=&parti="+parti+"&valkrets=&rdlstatus=&org=&utformat=json&sort=sorteringsnamn&sortorder=asc&termlista=",
+        url: "http://localhost:4567/api/v1/ledamoter/parti/" +parti,       
         headers: {"Accept": "application/json"} 
         })
     
         .done(function(data)
         {
             var i;
-            for(i = 0; i < data['personlista']['@hits']; i++)
-            {
+        for(i = 0; i < data.length; i++){
+            html = ' <li id="person_' + i + '">' + data[i]['namn'] + '</li>';
+        
+            $('#personer').append(html);
+            $('#personer').append('\n');
+            $('#person_' + i).click(updatePersonInfo(data[i]['id']));
+            $('#person_' + i).click(getTweets(data[i]['namn']));
+            $('#person_' + i).click(getLink(data[i]['id']));
             
-            
-            html = '';
-            html = ' <li id="person_' + i + '">' + data['personlista']['person'][i]['sorteringsnamn'] + '</li>';
+        }
+    }); 
+  } 
+
+
+  function getAll() {
+    $.ajax({
+        url: "http://localhost:4567/api/v1/ledamoter",
+        headers: {"Accept": "application/json"} 
+        })
+    
+        .done(function(data)
+        {
+            var i;
+            for(i = 0; i < data.length; i++){
+            html = ' <li id="person_' + i + '">' + data[i]['namn'] + '</li>';
           
             $('#personer').append(html);
             $('#personer').append('\n');
-            
-            var tweets = {"tweets":[    
-                {"name":"Ram", "content":"det här är tweet 1", "url":"det här är länken till tweeten", "date":"2020-12-26"},    
-                {"name":"Uno", "content":"det här är tweet 2", "url":"det här är länken till tweeten", "date":"2020-12-27"},  
-                {"name":"Ram", "content":"det här är tweet 3", "url":"det här är länken till tweeten", "date":"2020-12-28"}  
-            ]};
-
-            $('#person_' + i).click(updatePersonInfo(data['personlista']['person'][i],tweets)
-            )};
-            
-        }); 
-  } 
+            $('#person_' + i).click(updatePersonInfo(i));
+            $('#person_' + i).click(getTweets(data[i]['namn']));
+            $('#person_' + i).click(getLink(data[i]['id']));
+    
+            }; 
+        });
+  }
 
   function parallax_height() {
     var scroll_top = $(this).scrollTop();
