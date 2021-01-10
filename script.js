@@ -17,11 +17,10 @@ function getTweets(name){
             headers: {"Accept": "application/json"},
             error: function(response) {
                 $carousel = $('.carousel').flickity({
-                    wrapAround: true, 
                     prevNextButtons: false,
                     pageDots:false                  
                   });
-                  $('.carousel').append('<div class="carousel-cell"> <p>Inga tweets hittade</p>');
+                  $('.carousel').append('<div class="carousel-cell"> <p>Inga tweets hittade</p> </div>');
                   $('#container main').css({"height" : "70vh"}); 
             } 
         })
@@ -29,7 +28,7 @@ function getTweets(name){
             .done(function(details){    
                                                                          
                 for(i = 0; i < details.length; i++){
-                    $('.carousel').append('<div class="carousel-cell"> <p>'+details[i]["författare"]+'</p> <p>'+details[i]["text"]+'</p> <p> <a href ='+details[i]['url']+' target="_blank"> Klicka här för att se tweeten på twitters hemsida</a> </p> <img src="loggor/twitter.png">  <p class ="tid">'+details[i]["datum"]+'</p></div>');           
+                    $('.carousel').append('<div class="carousel-cell">  <p>'+details[i]["författare"]+'</p> <p>'+details[i]["text"]+'</p> <p> <a href ='+details[i]['url']+' target="_blank"> Klicka här för att se tweeten på twitters hemsida</a> </p> <p class ="tid">'+details[i]["datum"]+'</p> <img src="loggor/twitter.png" id="twitterimg"></div>');           
                 }
                 
                 $carousel = $('.carousel').flickity({
@@ -70,8 +69,7 @@ function updatePersonInfo(id){
             })
 
             .done(function(details)
-            {
-                console.log(details);
+            {                
                 $('#personNamn').text(details['namn']);
                 $('#bild').html('<img src="' + details['bild'] + '">');
                 $('#information').text("Mer info om " + details['namn'] + " finner du här: ");
@@ -79,8 +77,8 @@ function updatePersonInfo(id){
             });
         
         
-        $('#text').css({"outline-style":"dashed","outline-color": "#9F90BC"});
-        $('#container main').css({"height" : "100vh"}); 
+        //$('#text').css({"outline-style":"double","outline-color": "#9F90BC"});
+        $('#container main').css({"min-height" : "100vh"}); 
     }
 }
 

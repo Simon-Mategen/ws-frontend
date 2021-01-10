@@ -40,10 +40,10 @@ body{
   display: grid;
   padding-top: 10%;
   padding-left: 10%;
-  outline-style:solid;
+  /* outline-style:solid;
   outline-color: darkcyan;
   outline-offset: -2em;
-  outline-width: 1em;
+  outline-width: 1em; */
   grid-template-rows: 30% 30% 30%;
   grid-template-columns: 25% 50%;
   grid-template-areas: 
@@ -175,6 +175,11 @@ h1{
   color: white;
 }
 
+@media only screen and (max-width: 1550px) {
+  .sample-header-section {
+    padding: 10% 40% 50%;
+  }
+}  
 @media only screen and (max-width: 1330px) {
   li {
     padding: 1%;
@@ -201,17 +206,12 @@ h1{
     position: relative;
   }
 
-  #mm{
+  #section{
     margin-top: 0px !important;
   } 
 
   .sample-header-section {
-    position: absolute;
-    width: 100vw;
     padding: 10% 20% 50%;
-    margin: auto;
-    color: white;
-    text-shadow: 10px 10px 10px rgb(0, 0, 0);
   }
   }
 
@@ -248,5 +248,10 @@ h1{
         "img name"
         "text text"
         "tweet tweet";
+    
+  }
+
+  #twitterimg{
+    display: none;
   }
 } 
