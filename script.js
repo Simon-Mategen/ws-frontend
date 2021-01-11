@@ -78,7 +78,7 @@ function updatePersonInfo(id){
         
         
         //$('#text').css({"outline-style":"double","outline-color": "#9F90BC"});
-        $('#container main').css({"min-height" : "100vh"}); 
+        $('#container main').css({"height" : "100vh"}); 
     }
 }
 

@@ -238,10 +238,6 @@ h1{
     height: 70vh;
     padding-top: 10%;
     padding-left: 10%;
-    outline-style:solid;
-    outline-color: darkcyan;
-    outline-offset: -2em;
-    outline-width: 1em;
     grid-template-rows: 30% 30% 30%;
     grid-template-columns: 25% 50%;
     grid-template-areas: 
