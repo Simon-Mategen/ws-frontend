@@ -28,7 +28,7 @@ function getTweets(name){
             .done(function(details){    
                                                                          
                 for(i = 0; i < details.length; i++){
-                    $('.carousel').append('<div class="carousel-cell">  <p>'+details[i]["author"]+'</p> <p>'+details[i]["text"]+'</p> <p> <a href ='+details[i]['url']+' target="_blank"> Klicka här för att se tweeten på twitters hemsida</a> </p> <p class ="tid">'+details[i]["date"]+'</p> <img src="loggor/twitter.png" id="twitterimg"></div>');           
+                    $('.carousel').append('<div class="carousel-cell">  <p id ="author">'+details[i]["author"]+'</p> <p>'+details[i]["text"]+'</p> <p> <a href ='+details[i]['url']+' target="_blank"> Klicka här för att se tweeten på twitters hemsida</a> </p> <p class ="tid">'+details[i]["date"]+'</p> <img src="loggor/twitter.png" id="twitterimg"></div>');           
                 }
                 
                 $carousel = $('.carousel').flickity({
