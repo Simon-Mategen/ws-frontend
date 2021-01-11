@@ -77,7 +77,7 @@ function updatePersonInfo(id){
             });
         
         
-        //$('#text').css({"outline-style":"double","outline-color": "#9F90BC"});
+        $('#text').css({"outline-style":"double","outline-color": "#9F90BC"});
         $('#container main').css({"height" : "100vh"}); 
     }
 }
