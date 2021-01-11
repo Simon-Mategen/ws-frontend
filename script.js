@@ -28,7 +28,7 @@ function getTweets(name){
             .done(function(details){    
                                                                          
                 for(i = 0; i < details.length; i++){
-                    $('.carousel').append('<div class="carousel-cell">  <p>'+details[i]["författare"]+'</p> <p>'+details[i]["text"]+'</p> <p> <a href ='+details[i]['url']+' target="_blank"> Klicka här för att se tweeten på twitters hemsida</a> </p> <p class ="tid">'+details[i]["datum"]+'</p> <img src="loggor/twitter.png" id="twitterimg"></div>');           
+                    $('.carousel').append('<div class="carousel-cell">  <p>'+details[i]["author"]+'</p> <p>'+details[i]["text"]+'</p> <p> <a href ='+details[i]['url']+' target="_blank"> Klicka här för att se tweeten på twitters hemsida</a> </p> <p class ="tid">'+details[i]["date"]+'</p> <img src="loggor/twitter.png" id="twitterimg"></div>');           
                 }
                 
                 $carousel = $('.carousel').flickity({
@@ -70,10 +70,10 @@ function updatePersonInfo(id){
 
             .done(function(details)
             {                
-                $('#personNamn').text(details['namn']);
-                $('#bild').html('<img src="' + details['bild'] + '">');
-                $('#information').text("Mer info om " + details['namn'] + " finner du här: ");
-                $('#parti').text("Parti: "+details['parti']);
+                $('#personNamn').text(details['name']);
+                $('#bild').html('<img src="' + details['image'] + '">');
+                $('#information').text("Mer info om " + details['name'] + " finner du här: ");
+                $('#parti').text("Parti: "+details['party']);
             });
         
         
@@ -87,7 +87,7 @@ $(document).ready(function(){
     $('#container main').css({"height" : "70vh"}); 
 
     $.ajax({
-        url: "http://localhost:4567/api/v1/partier",
+        url: "http://localhost:4567/api/v1/parties",
         headers: {"Accept": "application/json"} 
     })
 
@@ -114,19 +114,19 @@ function submitForm(){
     $('ul').empty();
 
     $.ajax({
-        url: "http://localhost:4567/api/v1/ledamoter/parti/" +parti,       
+        url: "http://localhost:4567/api/v1/ledamoter/party/" +parti,       
         headers: {"Accept": "application/json"} 
     })
     
     .done(function(data){
         var i;
         for(i = 0; i < data.length; i++){
-            html = ' <li id="person_' + i + '">' + data[i]['namn'] + '</li>';
+            html = ' <li id="person_' + i + '">' + data[i]['name'] + '</li>';
         
             $('#personer').append(html);
             $('#personer').append('\n');
             $('#person_' + i).click(updatePersonInfo(data[i]['id']));
-            $('#person_' + i).click(getTweets(data[i]['namn']));
+            $('#person_' + i).click(getTweets(data[i]['name']));
             $('#person_' + i).click(getLink(data[i]['id']));
             
         }
@@ -144,12 +144,12 @@ function submitForm(){
     .done(function(data){
         var i;
         for(i = 0; i < data.length; i++){
-            html = ' <li id="person_' + i + '">' + data[i]['namn'] + '</li>';
+            html = ' <li id="person_' + i + '">' + data[i]['name'] + '</li>';
             
             $('#personer').append(html);
             $('#personer').append('\n');
             $('#person_' + i).click(updatePersonInfo(i));
-            $('#person_' + i).click(getTweets(data[i]['namn']));
+            $('#person_' + i).click(getTweets(data[i]['name']));
             $('#person_' + i).click(getLink(data[i]['id']));
     
         }; 
